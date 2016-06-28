@@ -21,17 +21,24 @@ def trello(mylcd):
     ourkey = open('.trello-screen-api-key').read();
     ourtoken = open('.trello-screen-token').read();
     ourlist = open('.trello-screen-list').read();
-    trello = TrelloApi(ourkey, token=ourtoken)
-    cards = trello.lists.get_card(ourlist)
-    index = 0
-    mylcd.lcd_display_string("Working on " + str(len(cards)) + " things:", 1)
-    
-    while index < len(cards) and index < 3:
-        thestring = " " + cards[index]['name'][:19]
-        mylcd.lcd_display_string(thestring, index + 2)
-        mylcd.lcd_display_string("", index + 2)
-        mylcd.lcd_write_char(165)
-        index = index + 1
+    try:
+
+        trello = TrelloApi(ourkey, token=ourtoken)
+        cards = trello.lists.get_card(ourlist)
+        index = 0
+        mylcd.lcd_display_string("Working on " + str(len(cards)) + " things:", 1)
+
+        while index < len(cards) and index < 3:
+            thestring = " " + cards[index]['name'][:19]
+            mylcd.lcd_display_string(thestring, index + 2)
+            mylcd.lcd_display_string("", index + 2)
+            mylcd.lcd_write_char(165)
+            index = index + 1
+    except HTTPError:
+        print("Error fetching Trello list")
+    except:
+        print("Unexpected error: ", sys.exc_info()[0])
+
 
 def main():
 
