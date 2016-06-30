@@ -21,6 +21,7 @@ def trello(mylcd):
     ourkey = open('.trello-screen-api-key').read();
     ourtoken = open('.trello-screen-token').read();
     ourlist = open('.trello-screen-list').read();
+    mylcd.lcd_clear()
     try:
 
         trello = TrelloApi(ourkey, token=ourtoken)
