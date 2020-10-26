@@ -14,6 +14,7 @@ import time
 if os.name != 'posix':
     sys.exit('platform not supported')
 from trello import TrelloApi
+from urllib.error import HTTPError
 
 from datetime import datetime
 
